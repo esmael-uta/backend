@@ -1,7 +1,14 @@
+from decouple import config
 import os
 from datetime import timedelta
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
+# from TradeShield.settings import GEMINI_API_KEY, GOOGLE_CLOUD_PROJECT
+# aiplatform.init(project=GOOGLE_CLOUD_PROJECT)
+
+# Add environment variable configurations here
+GEMINI_API_KEY = config('GEMINI_API_KEY')
+GOOGLE_CLOUD_PROJECT = config('GOOGLE_CLOUD_PROJECT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -33,12 +41,12 @@ INSTALLED_APPS = [
 
     # THIRD PARTY APPS
     'rest_framework',
+    'TradeShield',
     'corsheaders',
 
     # LOCAL APPS
     'authentication',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,8 +73,7 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
